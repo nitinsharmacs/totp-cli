@@ -43,7 +43,18 @@ files = [
 [package.extras]
 test = ["coverage", "mypy", "ruff", "wheel"]
 
+[[package]]
+name = "pyperclip"
+version = "1.9.0"
+description = "A cross-platform clipboard module for Python. (Only handles plain text for now.)"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "pyperclip-1.9.0.tar.gz", hash = "sha256:b7de0142ddc81bfc5c7507eea19da920b92252b548b96186caf94a5e2527d310"},
+]
+
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10"
-content-hash = "0a1c7f00f9aebdf050d4ffb20a007ba7f711da15e76cb59c29800379ffa08487"
+content-hash = "010e5f1ee95439df17c2855a1bc3b8a22ce59d57f555a65d69588a224adede68"

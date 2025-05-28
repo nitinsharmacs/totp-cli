@@ -1,5 +1,11 @@
+"""
+Main for totp cli
+"""
 import os
+import sys
 import click
+import pyperclip
+
 from totp_cli.storage import FileStorageBackend
 
 from totp_cli.totp_manager import TOTP_Manager
@@ -13,19 +19,31 @@ totp_manager = TOTP_Manager(storage_backend)
 def totp_cli():
     pass
 
-@totp_cli.command(help="Get one time OTP.")
-@click.option('--name', help='Name of 2MFA', required=True)
+@totp_cli.command(help="Get one time OTP for given MFA.")
+@click.argument('name')
 def get(name: str):
     try:
         otp = totp_manager.get_otp(name)
+        pyperclip.copy(otp)
         print(otp)
+        print("OTP is copied to clipboard.")
     except KeyError as err:
         print(err)
-        exit(1)
+        sys.exit(1)
 
 
-@totp_cli.command(help="Add new 2MFA entry.")
+@totp_cli.command(help=
+    """
+    Add new 2MFA entry.
+    For example,
+    totp add --name gitlab:user base32secret
+    """
+    )
 @click.option('--name', help='Name of 2MFA', required=True)
-@click.option('--secret', help='Base32 secret. Alternative to QR code while setting up 2MFA.', required=True)
+@click.option(
+    '--secret', 
+    help="Base32 secret. Alternative to QR code while setting up 2MFA.",
+    required=True)
 def add(name: str, secret: str):
-    print("add scret")
+    totp_manager.add_mfa(name, secret)
+    print("MFA added successfully.")

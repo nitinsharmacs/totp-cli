@@ -13,5 +13,8 @@ class TOTP_Manager:
             return totp.now()
         except KeyError:
             raise KeyError("Could not find key")
+    
+    def add_mfa(self, key: str, secret: str) -> None:
+        self.backend.store(key, {"secret": secret})
 
     
