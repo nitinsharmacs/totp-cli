@@ -1,0 +1,24 @@
+[project]
+name = "totp_cli"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Nitin Sharma",email = "48169425+nitinsharmacs@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "click (>=8.2.1,<9.0.0)",
+    "pyotp (>=2.9.0,<3.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "totp_cli", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+totp_cli = "totp_cli.main:totp_cli"
