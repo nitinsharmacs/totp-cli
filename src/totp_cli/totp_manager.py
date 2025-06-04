@@ -11,10 +11,13 @@ class TOTP_Manager:
             secret = self.backend.find(key)["secret"]
             totp = pyotp.TOTP(secret)
             return totp.now()
-        except KeyError:
-            raise KeyError("Could not find key")
+        except KeyError as error:
+            raise KeyError("Could not find key") from error
     
     def add_mfa(self, key: str, secret: str) -> None:
         self.backend.store(key, {"secret": secret})
+
+    def get_mfas(self) -> list[str]:
+        return self.backend.get_keys()
 
     

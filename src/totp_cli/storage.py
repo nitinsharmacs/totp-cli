@@ -12,6 +12,9 @@ class StorageBackend(ABC):
     @abstractmethod
     def store(self, key: str, value: dict):
         pass
+    @abstractmethod
+    def get_keys(self) -> list[str]:
+        pass
 
 
 class FileStorageBackend(StorageBackend):
@@ -30,6 +33,9 @@ class FileStorageBackend(StorageBackend):
     def store(self, key: str, value: dict):
         self.file_content[key] = value
         self.write()
+
+    def get_keys(self) -> list[str]:
+        return list(self.file_content.keys())
 
     def write(self) -> None:
         write_json(self.storage_file_path, self.file_content)

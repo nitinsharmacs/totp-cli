@@ -62,6 +62,16 @@ totp get gitlab:nitin
 
 It prints the otp and we well copies to your clipboard.
 
+## Shell completions
+
+Source the respective completion file in your shell as provided in `completions` directory.
+
+Source in `~/.zshrc`
+```
+source totp.zsh
+```
+
+For fish, you can add completion file to path `~/.config/fish/completions`
 
 ## Notice
 

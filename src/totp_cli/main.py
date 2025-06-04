@@ -15,12 +15,15 @@ FILE_PATH = f"{os.environ['HOME']}/.totp-secrets.json"
 storage_backend = FileStorageBackend(FILE_PATH)
 totp_manager = TOTP_Manager(storage_backend)
 
+def list_avail_mfas(ctx, param, incomplete):
+    return totp_manager.get_mfas()
+
 @click.group()
 def totp_cli():
     pass
 
 @totp_cli.command(help="Get one time OTP for given MFA.")
-@click.argument('name')
+@click.argument('name', shell_complete=list_avail_mfas)
 def get(name: str):
     try:
         otp = totp_manager.get_otp(name)
